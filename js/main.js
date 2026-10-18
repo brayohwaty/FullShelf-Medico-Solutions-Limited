@@ -54,7 +54,7 @@ const SITE = {
 
     // Payment details printed at the bottom. One line per entry. Leave [] to hide.
     // Example: ["Bank: Your Bank, Branch name", "Account name: DreamTech Solutions Ltd", "Account no.: 0000000000", "M-Pesa Till no.: 000000"]
-    payment: ["DREAMTECH SOLUTIONS LTD","EQUITY BANK","THIKA BRANCH","ACCOUNT NO:0123456789","M-PESA TILL NO: 012345"],
+    payment: ["DREAMTECH SOLUTIONS LTD","EQUITY BANK","THIKA BRANCH","ACCOUNT NO: 0123456789","M-PESA TILL NO: 012345"],
 
     terms: "Prices are in Kenya Shillings. This quotation is valid until the expiration date. Availability and delivery time will be confirmed when you place your order."
   }
