@@ -176,7 +176,8 @@
           <p><strong>${esc(SITE.name)}</strong></p>
           ${addressLines.map((a) => `<p>${esc(a)}</p>`).join("")}
           <p>Tax ID: ${esc(SITE.kraPin)}</p>
-          <p>${esc(SITE.phone)} &middot; ${esc(SITE.email)}</p>
+          <p>${esc(SITE.phone)}</p>
+          <p>${esc(SITE.email)}</p>
         </div>
       </div>
 
