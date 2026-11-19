@@ -8,7 +8,7 @@
    ============================================================ */
 (function () {
   const Q = SITE.quotation;
-  const KEY = { draft: "dreamtech_qt_draft", next: "dreamtech_qt_next", prices: "dreamtech_qt_prices" };
+  const KEY = { draft: "fullshelf_qt_draft", next: "fullshelf_qt_next", prices: "fullshelf_qt_prices" };
   const FIELDS = ["q-number", "q-date", "q-valid", "q-sales", "q-vat", "q-cname", "q-cco", "q-cphone", "q-cemail", "q-caddr", "q-notes"];
 
   const $ = (id) => document.getElementById(id);
@@ -423,7 +423,7 @@
   }
 
   /* ---------- automatic sign-out after inactivity ---------- */
-  const ACTIVE_KEY = "dreamtech_qt_active";
+  const ACTIVE_KEY = "fullshelf_qt_active";
   const IDLE_MS = (Q.idleMinutes || 15) * 60000;
   const WARN_MS = Math.min(60000, IDLE_MS / 2);
   let lastActive = Date.now();
