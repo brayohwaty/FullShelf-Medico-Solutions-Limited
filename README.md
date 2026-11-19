@@ -1,11 +1,11 @@
-# DreamTech Solutions Ltd: website (version 2)
+# FullShelf Medico Solutions Limited: website (version 2)
 
 A static website (HTML, CSS, JavaScript) with a quote list, map, rating form, social links, KRA details, and a photo-first design.
 
 ## Files
 
 ```
-dreamtech-site/
+fullshelf-site/
 ├── index.html      Home: hero photo, trust strip, category tiles, popular products
 ├── products.html   Catalogue with search and filters
 ├── quote.html      Quote list (the "cart")
