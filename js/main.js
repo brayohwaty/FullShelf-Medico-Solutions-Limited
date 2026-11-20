@@ -344,7 +344,7 @@ function injectSiteExtras() {
   if (navList) {
     const item = document.createElement("li");
     const onQuotePage = window.location.pathname.endsWith("quote.html");
-    item.innerHTML = `<a class="nav-quote" href="quote.html"${onQuotePage ? ' aria-current="page"' : ""}>Quote list <span class="badge" data-basket-count hidden>0</span></a>`;
+    item.innerHTML = `<a class="nav-quote" href="quote.html"${onQuotePage ? ' aria-current="page"' : ""}>Request a quote <span class="badge" data-basket-count hidden>0</span></a>`;
     navList.appendChild(item);
   }
 
