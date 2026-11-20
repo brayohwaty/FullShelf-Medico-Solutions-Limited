@@ -365,3 +365,18 @@ textarea { min-height: 8rem; resize: vertical; }
 }
 
 #quote-summary { margin-bottom: 1rem; }
+
+
+/* ============================================================
+   SERVICES (full-cycle)
+   ============================================================ */
+.services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1.25rem; }
+.service-card { background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 1.25rem 1.3rem 1.4rem; }
+.service-card h3 { font-size: 1.1rem; margin: 0.7rem 0 0.4rem; }
+.service-card p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
+.service-num { width: 2rem; height: 2rem; border-radius: 8px; background: var(--teal); color: var(--white); display: grid; place-items: center; font: 800 1rem var(--font-head); }
+.journey { list-style: none; counter-reset: step; margin: 0 0 1.5rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1.25rem; }
+.journey li { counter-increment: step; position: relative; padding-top: 2.6rem; }
+.journey li::before { content: counter(step); position: absolute; top: 0; left: 0; width: 2rem; height: 2rem; border-radius: 50%; background: var(--signal); color: var(--ink); display: grid; place-items: center; font: 800 1rem var(--font-head); }
+.journey strong { display: block; font-family: var(--font-head); margin-bottom: 0.25rem; }
+.journey span { color: var(--ink-soft); font-size: 0.95rem; }
