@@ -10,7 +10,7 @@ const BACKEND = (function () {
   cfg.url = (cfg.url || "").trim().replace(/\/+$/, "").replace(/\/(rest|auth)\/v1$/, "");
   cfg.anonKey = (cfg.anonKey || "").trim();
   const enabled = !!(cfg.url && cfg.anonKey);
-  const SESSION_KEY = "dreamtech_staff_session";
+  const SESSION_KEY = "fullshelf_staff_session";
 
   let session = null;
   try {
