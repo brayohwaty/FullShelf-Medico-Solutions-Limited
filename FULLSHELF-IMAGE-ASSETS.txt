@@ -1,0 +1,6 @@
+FULLSHELF IMAGE ASSETS
+
+Category images are in images/categories/ and are connected to all 19 catalogue categories.
+Product-specific representative images are in images/products/ and are mapped to selected featured products.
+Other catalogue items use their category image as a representative visual until a verified product/model photo is supplied.
+Generated visuals are illustrative and are not manufacturer-specific product images. Confirm exact specifications, models and availability on enquiry.

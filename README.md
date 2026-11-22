@@ -1,6 +1,6 @@
 # FullShelf Medico Solutions Limited: website (version 2)
 
-A static website (HTML, CSS, JavaScript) with a quote list, map, rating form, social links, KRA details, and a photo-first design.
+A static website for FullShelf Medico Solutions Limited, covering medical equipment, consumables, reagents, laboratory supplies, hospital furniture and specialist healthcare systems, with a quote list and enquiry forms.
 
 ## Files
 
@@ -26,7 +26,7 @@ fullshelf-site/
 | `mapQuery` | What the map searches for. Use your business name or full address as it appears on Google Maps |
 | `facebook`, `instagram` | Social icons (leave `""` to hide one) |
 | `googleReview` | Your Google "write a review" link (leave `""` to hide the button) |
-| `kraPin`, `kraNote` | KRA details shown on the home page, footer, and About page. Only show what is true and current |
+| `kraPin`, `kraNote` | Optional compliance details. Leave blank unless verified and approved for publication |
 | `logo` | e.g. `"images/logo.png"`. Replaces the plus icon in the header on every page |
 | `formEndpoint` | Your Formspree form address (Step 2) |
 

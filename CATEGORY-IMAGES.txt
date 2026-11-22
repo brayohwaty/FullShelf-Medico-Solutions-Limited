@@ -1,0 +1,6 @@
+Category image assets are stored in images/categories/ and are referenced by the existing category IDs:
+- furniture.jpg: hospital bed and ward furniture
+- diagnostics.jpg: diagnostic imaging equipment
+- respiratory.jpg: respiratory support equipment
+- wound-care.jpg: wound-care supplies
+- mobility.jpg: wheelchair and mobility aids

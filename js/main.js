@@ -6,9 +6,9 @@ const SITE = {
   name: "FullShelf Medico Solutions Limited",
 
   // WhatsApp: country code + number, digits only (no + or spaces)
-  whatsapp: "+254747829346",
+  whatsapp: "254747829346",
   phone: "+254 747 829 346",
-  email: "dreamtechsolutionske@gmail.com",
+  email: "info@fullshelfmedico.co.ke",
 
   // Shown in the footer and on the contact page. \n starts a new line.
   address: "\nNairobi, Kenya",
@@ -18,15 +18,15 @@ const SITE = {
   mapQuery: "Nairobi, Kenya",
 
   // Social pages. Leave as "" to hide an icon.
-  facebook: "https://www.facebook.com/",
-  instagram: "https://www.instagram.com/",
+  facebook: "",
+  instagram: "",
 
   // Paste your Google Business "write a review" link. Leave "" to hide the button.
   googleReview: "",
 
   // KRA. Only show what is true and up to date for your business.
-  kraPin: "A000000001X",
-  kraNote: "KRA compliant · eTIMS invoices",
+  kraPin: "",
+  kraNote: "",
 
   // Logo file, e.g. "images/logo.png". Leave "" to use the plus-sign icon.
   logo: "images/logo.png",
@@ -79,7 +79,11 @@ function categoryName(categoryId) {
 
 // Photo path for a product. Add images/products/<id>.jpg, or set "image" in products.js.
 function productImage(product) {
-  return product.image || "images/products/" + product.id + ".jpg";
+  if (product.image) return product.image;
+  const category = CATEGORIES.find((c) => c.id === product.category);
+  // Existing numbered product photos are retained; new catalogue entries use their category image.
+  const numberedPhoto = "images/products/" + product.id + ".jpg";
+  return product.id <= 48 ? numberedPhoto : (category && category.image ? category.image : numberedPhoto);
 }
 
 function productById(id) {
@@ -354,20 +358,16 @@ function injectSiteExtras() {
   }
 
   const footerGrid = document.querySelector(".footer-grid");
-  if (footerGrid) {
+  if (footerGrid && (SITE.facebook || SITE.instagram || SITE.googleReview)) {
     const review = SITE.googleReview
       ? `<li><a href="${SITE.googleReview}" target="_blank" rel="noopener">Review us on Google</a></li>`
       : "";
     footerGrid.insertAdjacentHTML(
       "beforeend",
       `<div>
-        <h3>Follow us</h3>
+        <h3>Connect with us</h3>
         ${socialLinks()}
-        <p class="footer-kra"><strong>${SITE.kraNote}</strong><br>KRA PIN: ${SITE.kraPin}</p>
-        <ul>
-          <li><a href="contact.html#rate">Rate us &#9733;</a></li>
-          ${review}
-        </ul>
+        ${review ? `<ul>${review}</ul>` : ""}
       </div>`
     );
   }
@@ -392,18 +392,20 @@ function setupHome() {
   const featuredGrid = document.getElementById("featured-grid");
   if (!featuredGrid) return;
 
-  featuredGrid.innerHTML = PRODUCTS.filter((p) => p.featured)
-    .slice(0, 4)
+  const featuredIds = [49, 52, 55, 67]; // dialysis, imaging, critical care, laboratory reagents
+  featuredGrid.innerHTML = featuredIds
+    .map(productById)
+    .filter(Boolean)
     .map(productCard)
     .join("");
 
   const tiles = document.getElementById("category-tiles");
   if (tiles) {
-    tiles.innerHTML = CATEGORIES.map(
+    tiles.innerHTML = CATEGORIES.filter((c) => c.home).map(
       (c) => `
       <a class="tile" href="products.html?category=${c.id}">
         <span class="tile-fallback">${iconSvg(c.id)}</span>
-        <img src="images/categories/${c.id}.jpg" alt="" loading="lazy" onerror="this.remove()">
+        ${c.image ? `<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()">` : ""}
         <span class="tile-label">${c.name}</span>
       </a>`
     ).join("");

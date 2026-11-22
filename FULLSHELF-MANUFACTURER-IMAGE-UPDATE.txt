@@ -1,0 +1,12 @@
+FULLSHELF MANUFACTURER IMAGE UPDATE – 22 NOVEMBER 2026
+
+Changes:
+1. Replaced selected category imagery with manufacturer-hosted product photographs where a clear match was verified.
+2. Added product-specific manufacturer reference images for patient monitoring, haemodialysis, ultrasound, ventilation, anaesthesia, clinical chemistry and CT imaging.
+3. Added manufacturer/model labels and links to the original product information pages.
+4. Removed the automatic fallback that reused a category image for unrelated products.
+5. Products without verified product photos now show a neutral icon and “Product photo available on request”.
+6. Added a catalogue disclaimer clarifying that manufacturer images are references only and do not imply authorised distributor status or stock availability.
+7. Updated cache version to fullshelf8.
+
+IMPORTANT: Manufacturer image rights must be confirmed before the commercial website is published. The external image URLs are hosted by their respective rights holders.
