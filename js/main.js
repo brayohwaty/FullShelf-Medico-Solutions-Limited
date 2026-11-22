@@ -95,10 +95,11 @@ function productById(id) {
   If the photo file does not exist, onerror removes it and the icon shows.
 */
 function productMedia(product, cssClass) {
+  const fallback = product.imageFallback || "";
   return `
-    <div class="${cssClass}">
+    <div class="${cssClass}${product.featured ? " card-media-featured" : ""}">
       <span class="media-fallback">${iconSvg(product.category)}</span>
-      <img src="${productImage(product)}" alt="${product.name}" loading="lazy" onerror="this.remove()">
+      <img src="${productImage(product)}" alt="${product.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer" ${fallback ? `data-fallback="${fallback}"` : ""} onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback='';}else{this.remove();}">
     </div>`;
 }
 
@@ -404,8 +405,8 @@ function setupHome() {
     tiles.innerHTML = CATEGORIES.filter((c) => c.home).map(
       (c) => `
       <a class="tile" href="products.html?category=${c.id}">
-        <span class="tile-fallback">${iconSvg(c.id)}</span>
-        ${c.image ? `<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()">` : ""}
+        <span class="tile-fallback" aria-hidden="true">${iconSvg(c.id)}</span>
+        ${c.image ? `<img src="${c.image}" alt="${c.name}" loading="lazy" onerror="this.remove(); this.previousElementSibling.style.display='grid'">` : ""}
         <span class="tile-label">${c.name}</span>
       </a>`
     ).join("");

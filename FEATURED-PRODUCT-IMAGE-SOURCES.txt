@@ -1,0 +1,16 @@
+FULLSHELF — FEATURED PRODUCT IMAGE UPDATE
+
+The four featured catalogue cards now reference manufacturer-hosted product photographs:
+
+1. Haemodialysis machine — Fresenius Medical Care official image library.
+   https://freseniusmedicalcare.com/en/media/multimedia/images/products/
+2. Ultrasound imaging system — GE HealthCare Versana product page.
+   https://www.gehealthcare.com/en/products/ultrasound/versana
+3. ICU ventilator — Dräger Evita V800 product page.
+   https://www.draeger.com/en-us_us/Products/Evita-V800
+4. Clinical chemistry reagents — Siemens Healthineers Academy Atellica CH reagent-pack job aid.
+   https://academy.siemens-healthineers.com/_/en-us/handling-reagent-packs-on-the-atellica-ch-analyzer-job-aid/
+
+The cards retain local image fallbacks in case a manufacturer CDN blocks hotlinking. Featured product photography uses contain-fit on a plain white background so the full product remains visible without cropping.
+
+Note: manufacturer-hosted images are externally loaded. Confirm the relevant image-use permissions and regional product availability before commercial publication.

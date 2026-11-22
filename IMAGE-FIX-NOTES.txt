@@ -1,0 +1,12 @@
+FULLSHELF IMAGE FIX
+-------------------
+The approved website layout and styling have been retained.
+The 19 category image paths in js/products.js now match the supplied
+images/categories/*.jpg files. The category images use the clean,
+bright product-photography style approved for the catalogue.
+No page layout, typography, colours, navigation or card design was changed.
+
+Verified category images: 19
+Missing category images: 0
+Missing local JS image references: 0
+External image references: 0
