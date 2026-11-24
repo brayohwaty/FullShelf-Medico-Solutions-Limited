@@ -32,7 +32,7 @@ const SITE = {
   logo: "images/logo.png",
 
   // Your Formspree form address (see README, step 2).
-  formEndpoint: "https://formspree.io/f/xppqanaz",
+  formEndpoint: "https://formspree.io/f/xeagvzlv",
 
   // Backend (Supabase). Leave both as "" to run without a backend.
   // See backend/SETUP steps: Project URL and "anon public" key from Supabase > Settings > API.
