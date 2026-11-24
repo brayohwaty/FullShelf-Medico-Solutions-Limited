@@ -8,7 +8,7 @@ const SITE = {
   // WhatsApp: country code + number, digits only (no + or spaces)
   whatsapp: "254747829346",
   phone: "+254 747 829 346",
-  email: "info@fullshelfmedico.co.ke",
+  email: "info@fullshelf.co.ke",
 
   // Shown in the footer and on the contact page. \n starts a new line.
   address: "\nNairobi, Kenya",
