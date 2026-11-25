@@ -32,7 +32,7 @@ const SITE = {
   logo: "images/logo.png",
 
   // Your Formspree form address (see README, step 2).
-  formEndpoint: "https://formspree.io/f/xeagvzlv",
+  formEndpoint: "https://formspree.io/f/xppqanaz",
 
   // Backend (Supabase). Leave both as "" to run without a backend.
   // See backend/SETUP steps: Project URL and "anon public" key from Supabase > Settings > API.
@@ -77,13 +77,21 @@ function categoryName(categoryId) {
   return cat ? cat.name : "";
 }
 
-// Photo path for a product. Add images/products/<id>.jpg, or set "image" in products.js.
+// Prefer a product-specific photograph. If one is not yet available, use the
+// matching catalogue-family photograph so the card remains visual without
+// displaying a misleading "available on request" message.
 function productImage(product) {
   if (product.image) return product.image;
-  const category = CATEGORIES.find((c) => c.id === product.category);
-  // Existing numbered product photos are retained; new catalogue entries use their category image.
   const numberedPhoto = "images/products/" + product.id + ".jpg";
-  return product.id <= 48 ? numberedPhoto : (category && category.image ? category.image : numberedPhoto);
+  if (product.id <= 48) return numberedPhoto;
+  const category = CATEGORIES.find((item) => item.id === product.category);
+  return category ? category.image : "";
+}
+
+function productImageFallback(product) {
+  if (product.imageFallback) return product.imageFallback;
+  const category = CATEGORIES.find((item) => item.id === product.category);
+  return category ? category.image : "";
 }
 
 function productById(id) {
@@ -95,11 +103,12 @@ function productById(id) {
   If the photo file does not exist, onerror removes it and the icon shows.
 */
 function productMedia(product, cssClass) {
-  const fallback = product.imageFallback || "";
+  const fallback = productImageFallback(product);
+  const photo = productImage(product);
   return `
-    <div class="${cssClass}${product.featured ? " card-media-featured" : ""}">
+    <div class="${cssClass}${product.featured ? " card-media-featured" : ""}${photo ? " has-product-photo" : " no-product-photo"}">
       <span class="media-fallback">${iconSvg(product.category)}</span>
-      <img src="${productImage(product)}" alt="${product.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer" ${fallback ? `data-fallback="${fallback}"` : ""} onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback='';}else{this.remove();}">
+      ${photo ? `<img src="${photo}" alt="${product.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer" ${fallback ? `data-fallback="${fallback}"` : ""} onerror="if(this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback='';}else{this.remove();this.parentElement.classList.remove('has-product-photo');this.parentElement.classList.add('no-product-photo');}">` : ""}
     </div>`;
 }
 
@@ -261,18 +270,76 @@ function setupForms() {
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-      if (isPlaceholderEndpoint()) {
-        setStatus(status, NOT_SET_UP_MESSAGE, "error");
-        return;
-      }
+      const isCustomerEnquiry = form.id === "contact-request-form";
       const button = form.querySelector("[type=submit]");
       button.disabled = true;
+
       try {
+        if (isCustomerEnquiry) {
+          // Record the enquiry in Customer Requests before confirming submission.
+          if (typeof BACKEND === "undefined" || !BACKEND.enabled) {
+            throw new Error("Customer Requests database is not available.");
+          }
+
+          const name = form.elements["name"].value.trim();
+          const phone = form.elements["phone"].value.trim();
+          const email = form.elements["email"].value.trim();
+          const product = form.elements["product"].value.trim();
+          const message = form.elements["message"].value.trim();
+          const itemSummary = product ? "Product / service: " + product : "General enquiry";
+          const requestItems = message ? itemSummary + "\nDetails: " + message : itemSummary;
+
+          await BACKEND.submitRequest({
+            name,
+            phone,
+            email: email || null,
+            message: message || null,
+            items: requestItems
+          });
+
+          // Database is the source of truth. Do not invite a duplicate resubmission
+          // if the email notification service is temporarily unavailable.
+          let emailSent = false;
+          if (!isPlaceholderEndpoint()) {
+            const emailData = new FormData(form);
+            emailData.set("items", requestItems);
+            emailData.set("_subject", "New website enquiry: " + (product || "General enquiry"));
+            try {
+              await sendToFormspree(emailData);
+              emailSent = true;
+            } catch (mailError) {
+              console.error("Enquiry saved, but email notification failed:", mailError);
+            }
+          }
+
+          form.reset();
+          setStatus(
+            status,
+            emailSent
+              ? "Thank you! Your request has been recorded and sent to our team."
+              : "Thank you! Your request has been recorded. Our team will follow up; email notification is temporarily unavailable.",
+            "ok"
+          );
+          return;
+        }
+
+        // Other forms (such as the website rating form) remain email-only.
+        if (isPlaceholderEndpoint()) {
+          setStatus(status, NOT_SET_UP_MESSAGE, "error");
+          return;
+        }
         await sendToFormspree(new FormData(form));
         form.reset();
         setStatus(status, form.dataset.success || "Thank you! We will reply soon.", "ok");
       } catch (error) {
-        setStatus(status, FAILED_MESSAGE, "error");
+        console.error("Website form submission failed:", error);
+        setStatus(
+          status,
+          isCustomerEnquiry
+            ? "Sorry, your request could not be saved. Please try again or contact us on WhatsApp."
+            : FAILED_MESSAGE,
+          "error"
+        );
       } finally {
         button.disabled = false;
       }
